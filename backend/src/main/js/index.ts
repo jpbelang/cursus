@@ -1,23 +1,21 @@
 import "reflect-metadata";
 import {createConnection} from "typeorm";
-import {AuthInformation} from "./authuser";
-import { v4 as uuidv4 } from 'uuid';
-import {hashSync} from 'bcrypt';
+import {Gender, User} from "./entities";
+
+console.log("help me")
 
 createConnection({
     type: "sqlite",
-    database: "cursus",
+    database: "cursus2.db",
     entities: [
-        AuthInformation
+        User
     ],
     synchronize: true,
     logging: false
 }).then(async connection => {
     // here you can start to work with your entities
-    const auth = AuthInformation.newUser("jp@fun.com", "myPassword")
+    const auth = User.newUser({email: "jp@fun.com", password: "myPassword", name: "JP B", gender: Gender.MALE})
     const authSaved = await connection.manager.save(auth)
-    const getAuth = await connection.manager.find(AuthInformation, {id: auth.id})
-    getAuth[0].newPassword("googoo")
-    const savedAuth = await connection.manager.save(getAuth)
+    console.log(authSaved)
 
 }).catch(error => console.log(error));

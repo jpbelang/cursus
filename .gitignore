@@ -4,6 +4,7 @@ __pycache__
 .pytest_cache
 .env
 *.egg-info
+*.db
 
 # CDK asset staging directory
 .cdk.staging
@@ -13,3 +14,4 @@ cdk.out
 node_modules/
 install/
 target/
+dist/
