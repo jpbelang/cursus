@@ -1,18 +1,16 @@
 import {Column, Entity, OneToMany, PrimaryColumn} from "typeorm";
-import {SimpleVersionedObject} from "common";
-import {Room} from "./room";
-
+import {SimpleVersionedObject} from "./common";
 
 type ClassData = {
-    room: Room,
+   // room: Room,
     date: string
     size: number
 }
 
 @Entity()
-export class Class extends SimpleVersionedObject implements ClassData {
+export class ClassInstance extends SimpleVersionedObject implements ClassData {
 
-    private constructor(fields: Partial<Class>) {
+    private constructor(fields: Partial<ClassInstance>) {
         super();
         Object.assign(this, fields)
     }
@@ -20,8 +18,8 @@ export class Class extends SimpleVersionedObject implements ClassData {
     @PrimaryColumn()
     id: string
 
-    @OneToMany(() => Room, "classes")
-    room: Room
+    // @OneToMany(() => Room, "classes")
+    // room: Room
 
     @Column("datetime")
     date: string

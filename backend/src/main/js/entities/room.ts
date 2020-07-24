@@ -1,6 +1,6 @@
 import {Column, Entity, Index, ManyToOne, PrimaryColumn} from "typeorm";
 import {SimpleVersionedObject} from "./common";
-import {Class} from "./class";
+import {Classinstance} from "./class";
 
 @Entity()
 export class Room extends SimpleVersionedObject {
@@ -18,5 +18,5 @@ export class Room extends SimpleVersionedObject {
     address: string
 
     @ManyToOne("Class", "room")
-    classes: Class[]
+    classes: Classinstance[]
 }
