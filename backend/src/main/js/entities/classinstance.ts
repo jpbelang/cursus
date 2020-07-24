@@ -1,5 +1,6 @@
 import {Column, Entity, OneToMany, PrimaryColumn} from "typeorm";
 import {SimpleVersionedObject} from "./common";
+import {Room} from "./room";
 
 type ClassData = {
    // room: Room,
@@ -18,8 +19,8 @@ export class ClassInstance extends SimpleVersionedObject implements ClassData {
     @PrimaryColumn()
     id: string
 
-    // @OneToMany(() => Room, "classes")
-    // room: Room
+    @OneToMany("Room", "classes")
+    room: Room
 
     @Column("datetime")
     date: string

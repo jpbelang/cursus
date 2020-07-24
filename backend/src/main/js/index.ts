@@ -10,6 +10,7 @@ import {Teacher} from "./entities/teacher";
 import {FieldOfExpertise} from "./entities/fieldofexpertise";
 import {Course} from "./entities/course";
 import {ClassInstance} from "./entities/classinstance";
+import {Room} from "./entities/room";
 
 export async function getUsers(request: Request, response: Response) {
 
@@ -51,7 +52,7 @@ createConnection({
     type: "sqlite",
     database: "cursus2.db",
     entities: [
-        User, Teacher, FieldOfExpertise, Course, ClassInstance
+        User, Teacher, FieldOfExpertise, Course, ClassInstance, Room
     ],
     synchronize: true,
     logging: false
