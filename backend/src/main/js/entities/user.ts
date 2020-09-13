@@ -2,7 +2,7 @@ import {Column, Entity, Index, PrimaryColumn, Unique} from "typeorm";
 import {hashSync} from "bcrypt";
 import {Gender, SimpleVersionedObject} from "./common";
 
-type UserData = {
+export type UserData = {
     name: string,
     email: string,
     gender: Gender
