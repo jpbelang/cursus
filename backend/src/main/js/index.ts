@@ -11,42 +11,8 @@ import {FieldOfExpertise} from "./entities/fieldofexpertise";
 import {Course} from "./entities/course";
 import {ClassInstance} from "./entities/classinstance";
 import {Room} from "./entities/room";
+import {createUserResource} from "./resources/users";
 
-export async function getUsers(request: Request, response: Response) {
-
-    // get a post repository to perform operations with post
-    const postRepository = getManager().getRepository(User);
-
-    // load a post by a given post id
-    const posts = await postRepository.find();
-
-    // return loaded posts
-    response.send(posts);
-}
-
-export async function getUser(request: Request, response: Response) {
-
-    // get a post repository to perform operations with post
-    const postRepository = getManager().getRepository(User);
-
-    // load a post by a given post id
-    const posts = await postRepository.find();
-
-    // return loaded posts
-    response.send(posts);
-}
-
-export async function createUser(request: Request, response: Response) {
-
-    // get a post repository to perform operations with post
-    const postRepository = getManager().getRepository(User);
-
-    // load a post by a given post id
-    const posts = await postRepository.create(User.newUser(request.body));
-
-    // return loaded posts
-    response.send(posts);
-}
 
 createConnection({
     type: "sqlite",
@@ -64,10 +30,8 @@ createConnection({
 
     const app = express();
     app.use(bodyParser.json());
-    app
-        .get('/user', getUsers)
-        .get("/user/:id", getUser)
-        .post("/user", createUser);
+
+    app.use("/users", createUserResource(connection.createEntityManager()))
 
     // run app
     app.listen(3000);

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "ES2018",
     "module": "commonjs",
     "outDir": "dist",
     "strict": true,
@@ -9,14 +9,15 @@
       "node_modules/@types"
     ],
     "types": [
-      "node"
+      "node", "jest"
     ],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "inlineSourceMap": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+
   },
   "include": [
     "src/main/js"
