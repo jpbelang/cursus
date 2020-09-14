@@ -2,7 +2,7 @@ import express, {NextFunction, Request, Response} from "express";
 import {EntityManager, getManager, Repository} from "typeorm";
 import {User, UserData} from "../entities/user";
 import {Gender} from "../entities/common";
-import {IsDefined, IsEmail, MinLength, validate} from "class-validator";
+import {IsDefined, IsEmail, IsUUID, MinLength, validate} from "class-validator";
 import {defaultFromNetwork, validateMessage} from "./utilities";
 import {classToClass, Expose, plainToClass} from "class-transformer";
 
@@ -17,7 +17,7 @@ declare global {
 
 export class UserMessage implements UserData {
 
-    @Expose() @IsDefined({groups: ["PUT"]})
+    @Expose() @IsDefined({groups: ["PUT"]}) @IsUUID("all", {groups: ["PUT"]})
     id: string
 
     @IsEmail({

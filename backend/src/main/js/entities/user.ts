@@ -22,9 +22,6 @@ export class User extends SimpleVersionedObject implements UserData {
         return new User(Object.assign(args, {saltedPassword: hashSync(args.password, 15)}))
     }
 
-    @PrimaryColumn()
-    id: string
-
     @Column()
     @Index()
     email: string
@@ -34,7 +31,6 @@ export class User extends SimpleVersionedObject implements UserData {
 
     @Column({
         type: 'simple-enum',
-
         enum: Gender,
     })
     gender: Gender

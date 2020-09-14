@@ -36,11 +36,28 @@ describe('users and friends', function() {
                 method: "POST"
             } as any
 
-            const foo = await validateMessage((s) => UserMessage.fromNetwork(s))(req, {} as any, () => {} )
+            await validateMessage((s) => UserMessage.fromNetwork(s))(req, {} as any, () => {} )
 
             expect(req.body).toEqual({
                 email: "jpbelang@place.com", gender: Gender.MALE, name: "JP Belanger", password: "funguy"
             })
         })
+
+        it("verifies a put message", async () => {
+
+            const req = {
+                body: {
+                    email: "jpbelang@place.com", gender: Gender.MALE, name: "JP Belanger", password: "funguy"
+                },
+                method: "PUT"
+            } as any
+
+            await validateMessage((s) => UserMessage.fromNetwork(s))(req, {} as any, () => {} )
+
+            expect(req.body).toEqual({
+                email: "jpbelang@place.com", gender: Gender.MALE, name: "JP Belanger", password: "funguy"
+            })
+        })
+
     }
 )
