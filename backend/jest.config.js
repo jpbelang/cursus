@@ -152,7 +152,7 @@ module.exports = {
     "<rootDir>/src/test/js"
   ],
   "testMatch": [
-    "**/*.unitspec.ts"
+    "**/*.unitspec.ts", "**/*.intspec.ts"
   ],
 
   "transform": {

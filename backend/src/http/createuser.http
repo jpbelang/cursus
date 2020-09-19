@@ -1,0 +1,11 @@
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "email": "jp@fun.com",
+  "gender": "male",
+  "name": "Hello",
+  "password": "BBBBAAAJJJAAA"
+}
+
+###

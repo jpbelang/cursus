@@ -64,6 +64,7 @@ export interface TypedRequest<E, M> extends Request {
 export function createRepository(manager: EntityManager) {
     return (req: Request, res: Response, next: NextFunction) => {
         req.repository = manager.getRepository(User)
+        next()
     };
 }
 
@@ -81,34 +82,34 @@ export function createUserResource(manager: EntityManager) {
 
 export async function getUsers(request: TypedRequest<User, UserMessage>, response: Response) {
     // get a post repository to perform operations with post
-    const postRepository = getManager().getRepository(User);
+    const userRepository = getManager().getRepository(User);
 
     // load a post by a given post id
-    const posts = await postRepository.find();
+    const user = await userRepository.find();
 
-    // return loaded posts
-    response.send(posts);
+    // return loaded user
+    response.send(user);
 }
 
 export async function getUser(request: TypedRequest<User, UserMessage>, response: Response) {
     // get a post repository to perform operations with post
-    const postRepository = getManager().getRepository(User);
+    const userRepository = getManager().getRepository(User);
 
     // load a post by a given post id
-    const posts = await postRepository.find();
+    const user = await userRepository.find();
 
-    // return loaded posts
-    response.send(posts);
+    // return loaded user
+    response.send(user);
 }
 
 export async function createUser(req: TypedRequest<User, UserMessage>, res: Response) {
 
     // get a post repository to perform operations with post
-    const postRepository = getManager().getRepository(User);
+    const userRepository = getManager().getRepository(User);
 
     // load a post by a given post id
-    const posts = await postRepository.create(User.newUser(req.body));
+    const user = await userRepository.save(User.newUser(req.body));
 
-    // return loaded posts
-    res.send(posts);
+    // return loaded user
+    res.status(201).send(UserMessage.fromEntity(user));
 }
