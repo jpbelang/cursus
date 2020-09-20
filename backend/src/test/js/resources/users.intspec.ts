@@ -9,8 +9,6 @@ describe('users resource test', function () {
 
     it("create a user", async () => {
 
-        jest.setTimeout(60000);
-
         const connection = await createConnection(createConnectionOptions(":memory:"))
         const app = createApplication(connection.createEntityManager())
 
