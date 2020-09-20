@@ -3,6 +3,7 @@ import {
     VersionColumn
 } from "typeorm";
 import {v4 as uuidv4} from 'uuid';
+import {Expose} from "class-transformer";
 
 export class SimpleVersionedObject {
 
@@ -11,8 +12,11 @@ export class SimpleVersionedObject {
         this.version = 0;
     }
 
+    @Expose()
     @PrimaryColumn()
     id: string
+
+    @Expose()
     @VersionColumn()
     version: number
 }

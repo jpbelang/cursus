@@ -1,6 +1,8 @@
 import {Column, Entity, Index, PrimaryColumn, Unique} from "typeorm";
 import {hashSync} from "bcrypt";
 import {Gender, SimpleVersionedObject} from "./common";
+import {Expose, plainToClass} from "class-transformer";
+import {v4} from "uuid";
 
 export type UserData = {
     name: string,
@@ -12,23 +14,28 @@ export type UserData = {
 @Unique("email", ["email"])
 export class User extends SimpleVersionedObject implements UserData {
 
-    private constructor(fields: Partial<User>) {
-        super();
-        Object.assign(this, fields)
-    }
 
     static newUser(args: UserData & {password: string}): User {
 
-        return new User(Object.assign(args, {saltedPassword: hashSync(args.password, 15)}))
+        const data : UserData & {password: string}  = Object.assign({}, args)
+        const val = plainToClass(User, data, {
+            excludeExtraneousValues: true
+        } )
+        val.id = v4()
+        val.saltedPassword = hashSync(args.password, 15)
+        return val
     }
 
+    @Expose()
     @Column()
     @Index()
     email: string
 
+    @Expose()
     @Column()
     name: string
 
+    @Expose()
     @Column({
         type: 'simple-enum',
         enum: Gender,

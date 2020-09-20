@@ -30,6 +30,22 @@ describe('users and friends', function () {
             })
         })
 
+        it("creates a message from an entity", async () => {
+
+            const user = UserMessage.fromEntity({
+                email: "jpbelang@place.com",
+                gender: Gender.MALE, name: "JP Belanger",
+                id: "1",
+                saltedPassword: "fjlfkdjlsfdjk",
+                version: 0, newPassword(password: string): void {
+                }
+            } as any )
+
+            expect(user).toEqual({
+                email: "jpbelang@place.com", gender: Gender.MALE, name: "JP Belanger", id: "1"
+            })
+        })
+
         it("verifies a message", async () => {
 
             const req = {

@@ -108,7 +108,8 @@ export async function createUser(req: TypedRequest<User, UserMessage>, res: Resp
     const userRepository = getManager().getRepository(User);
 
     // load a post by a given post id
-    const user = await userRepository.save(User.newUser(req.body));
+    let entity = User.newUser(req.body);
+    const user = await userRepository.save(entity);
 
     // return loaded user
     res.status(201).send(UserMessage.fromEntity(user));

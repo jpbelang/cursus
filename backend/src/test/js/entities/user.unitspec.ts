@@ -10,6 +10,8 @@ describe('user', function() {
             })
 
             expect(user.saltedPassword).not.toEqual("funguy")
+            expect(user.id).toMatch(/[a-f0-9-]+/)
+            expect((user as any ).password).not.toBeDefined()
         })
     }
 )
