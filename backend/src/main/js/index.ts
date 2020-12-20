@@ -11,7 +11,6 @@ createConnection(createConnectionOptions()).then(async connection => {
 
     const entityManager = connection.createEntityManager();
     const app = createApplication(entityManager);
-
     // run app
     app.listen(3000);
 

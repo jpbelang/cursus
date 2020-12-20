@@ -1,7 +1,7 @@
 import {User} from "../../../main/js/entities/user";
 import {Gender} from "../../../main/js/entities/common";
 
-describe('user', function() {
+describe('with user', function() {
 
         it("creates password", async () => {
 

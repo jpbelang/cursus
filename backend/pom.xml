@@ -58,16 +58,6 @@
                             <arguments>run build</arguments>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>awstest</id>
-                        <phase>none</phase>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run awstest</arguments>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
