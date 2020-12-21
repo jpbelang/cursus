@@ -46,17 +46,17 @@ describe('in the utilities', () => {
 
         it('should succede  on valid message', async () => {
 
-   /*         const req: Request = mock<Request>()
+            const req: Request = mock<Request>()
             const resp = mock<Response>()
-            const next = mock<NextFunction>()
+            const next = jest.fn()
 
             when(req.method).thenReturn("GET")
 
             let someThing = plainToClass(SomeThing, {name: "Dave"});
             const validationResult = await validateMessage(() => someThing)
-            validationResult(instance(req), instance(resp), instance(next))
+            const goo = await validationResult(instance(req), instance(resp), next)
 
-            expect(next).toBeCalled()*/
+            expect(next.mock.calls).toHaveLength(1)
         });
 
         it('should cleanup contests of message', () => {
