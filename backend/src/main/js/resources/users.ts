@@ -2,9 +2,10 @@ import express, {NextFunction, Request, Response} from "express";
 import {EntityManager, getManager, Repository} from "typeorm";
 import {User, UserData} from "../entities/user";
 import {Gender} from "../entities/common";
-import {IsDefined, IsEmail, IsUUID, MinLength, validate} from "class-validator";
-import {defaultFromNetwork, validateMessage} from "./utilities";
-import {classToClass, Expose, plainToClass} from "class-transformer";
+import {IsDefined, IsEmail, IsUUID, MinLength} from "class-validator";
+import {defaultFromNetwork} from "./utilities";
+import {Expose, plainToClass} from "class-transformer";
+import {expressValidator, RestValidationTags} from "./express";
 
 
 declare global {
@@ -17,27 +18,29 @@ declare global {
 
 export class UserMessage implements UserData {
 
-    @Expose() @IsDefined({groups: ["PUT"]}) @IsUUID("all", {groups: ["PUT"]})
+    @Expose()
+    @IsDefined({groups: RestValidationTags.update()})
+    @IsUUID("all", {groups: RestValidationTags.update()})
     id: string
 
     @IsEmail({
         allow_utf8_local_part: true
-    }, {groups: ["PUT", "POST"]})
-    @IsDefined({groups: ["PUT", "POST"]})
+    }, {groups: RestValidationTags.any()})
+    @IsDefined({groups: RestValidationTags.any()})
     @Expose()
     email: string;
 
-    @IsDefined({groups: ["PUT", "POST"]})
+    @IsDefined({groups: RestValidationTags.any()})
     @Expose()
     gender: Gender;
 
-    @IsDefined({groups: ["PUT", "POST"]})
-    @MinLength(4, {groups: ["PUT", "POST"]})
+    @IsDefined({groups: RestValidationTags.any()})
+    @MinLength(4, {groups: RestValidationTags.any()})
     @Expose()
     name: string;
 
     @MinLength(4, {
-        groups: ["POST"]
+        groups: RestValidationTags.create()
     })
     @Expose()
     password: string
@@ -72,11 +75,12 @@ export function createRepository(manager: EntityManager) {
 export function createUserResource(manager: EntityManager) {
     const userRouter = express.Router()
     userRouter.use(createRepository(manager))
-    userRouter.use(validateMessage((s) => UserMessage.fromNetwork(s)))
+    userRouter.use( expressValidator((x) => UserMessage.fromNetwork(x)) )
+
     userRouter
         .get('/', getUsers)
         .get("/:id", getUser)
-        .post("/", createUser);
+        .post("/", createUser)
     return userRouter
 }
 
